@@ -13,7 +13,7 @@
 			<br>
 			<h1 class="text-center">Rekap Caraka</h1>
 			<hr>
-			<div class="alert alert-success">Perolehan jumlah halaman tertinggi diraih oleh <strong>:namanya</strong> dengan jumlah halaman <strong>:jumlahnya</strong></div>
+			<div class="alert alert-success">Perolehan jumlah halaman tertinggi diraih oleh <strong>{{ nama_tertinggi }}</strong> dengan jumlah halaman <strong>{{ titik(jumlah_tertinggi) }}</strong></div>
 			<div class="row">
 				<div class="col-sm-6">
 					<p><strong>Belum mencapai target</strong></p>
@@ -72,7 +72,9 @@
 			el: '.vue',
 			data: {
 				target: 270,
-				data: []
+				data: [],
+				nama_tertinggi: '',
+				jumlah_tertinggi: 0
 			},
 			computed: {
 				banyak_data(){
@@ -137,6 +139,16 @@
 							jumlah: semua_jumlah[n]
 						})
 					}
+					jumlah_tertinggi = 0
+					nama_dengan_jumlah_tertinggi = ''
+					for (x of kumpulan){
+						if (x.jumlah > jumlah_tertinggi){
+							jumlah_tertinggi = x.jumlah
+							nama_dengan_jumlah_tertinggi = x.nama
+						}
+					}
+					this.nama_tertinggi = nama_dengan_jumlah_tertinggi
+					this.jumlah_tertinggi = jumlah_tertinggi
 					this.data = kumpulan
 					loading_selesai()
 				})
