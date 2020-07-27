@@ -85,7 +85,7 @@
 			mounted(){
 				loading()
 				fetch(api).then(x => x.json()).then(data => {
-					data = data.reverse()
+					data.reverse()
 					data_baru = []
 					for (x of data){
 						tanggalan = new Date(x.Timestamp)
@@ -95,10 +95,37 @@
 							data_baru.push(x)
 						}
 					}
-					for (x of data_baru){
-
+					for (n in data_baru){
+						tanggalan = new Date(data_baru[n].Timestamp)
+						data_baru[n].identitas = `${tanggalan.getDate()}-${encodeURIComponent(data_baru[n].Nama)}`
 					}
-					this.data = data_baru
+					kumpulan_identitas = []
+					data_baru2 = []
+					for (x of data_baru){
+						if (!kumpulan_identitas.includes(x.identitas)) {
+							kumpulan_identitas.push(x.identitas)
+							data_baru2.push(x)
+						}
+					}
+					semua_nama = []
+					for (x of data_baru2){
+						if (!semua_nama.includes(x.Nama)){
+							semua_nama.push(x.Nama)
+						}
+					}
+					semua_nama.sort()
+					semua_nama = semua_nama.filter(x => x.length > 0)
+					semua_jumlah = []
+					for (x of semua_nama){
+						total = 0
+						for (y of data_baru2){
+							if (x == y.Nama){
+								total += Number(y['Jumlah halaman baca'])
+							}
+						}
+						semua_jumlah.push(total)
+					}
+					this.data = semua_jumlah
 					loading_selesai()
 				})
 			}
