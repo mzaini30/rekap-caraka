@@ -13,6 +13,7 @@
 			<br>
 			<h1 class="text-center">Rekap Caraka</h1>
 			<hr>
+			<div class="alert alert-success">Perolehan jumlah halaman tertinggi diraih oleh <strong>:namanya</strong> dengan jumlah halaman <strong>:jumlahnya</strong></div>
 			<div class="row">
 				<div class="col-sm-6">
 					<p><strong>Belum mencapai target</strong></p>
@@ -27,7 +28,7 @@
 							<tbody>
 								<tr v-for='x in data'>
 									<td v-if='x.jumlah < target'>{{ x.nama }}</td>
-									<td v-if='x.jumlah < target'>{{ x.jumlah }} (kurang {{ selisih(x.jumlah) }})</td>
+									<td v-if='x.jumlah < target'><strong>{{ x.jumlah }}</strong> (kurang {{ selisih(x.jumlah) }})</td>
 								</tr>
 							</tbody>
 						</table>
@@ -46,7 +47,7 @@
 							<tbody>
 								<tr v-for='x in data'>
 									<td v-if='x.jumlah >= target'>{{ x.nama }}</td>
-									<td v-if='x.jumlah >= target'>{{ x.jumlah }}</td>
+									<td v-if='x.jumlah >= target'><strong>{{ titik(x.jumlah) }}</strong></td>
 								</tr>
 							</tbody>
 						</table>
@@ -76,6 +77,14 @@
 			computed: {
 				banyak_data(){
 					return this.data.length
+				}
+			},
+			methods: {
+				selisih(n){
+					return this.target - Number(n)
+				},
+				titik(n){
+					return Number(n).toLocaleString('id')
 				}
 			},
 			mounted(){
