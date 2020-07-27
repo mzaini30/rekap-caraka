@@ -12,8 +12,6 @@
 		<div class="container">
 			<br>
 			<h1 class="text-center">Rekap Caraka</h1>
-			<p>{{ data[0] }}</p>
-			<p>{{ banyak_data }}</p>
 			<hr>
 			<div class="row">
 				<div class="col-sm-6">
@@ -27,9 +25,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for='x in belum'>
-									<td>Zen</td>
-									<td>10</td>
+								<tr v-for='x in data'>
+									<td v-if='x.jumlah < target'>{{ x.nama }}</td>
+									<td v-if='x.jumlah < target'>{{ x.jumlah }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -46,9 +44,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for='x in sudah'>
-									<td>Zen</td>
-									<td>10</td>
+								<tr v-for='x in data'>
+									<td v-if='x.jumlah >= target'>{{ x.nama }}</td>
+									<td v-if='x.jumlah >= target'>{{ x.jumlah }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -72,8 +70,6 @@
 		new Vue({
 			el: '.vue',
 			data: {
-				belum: [],
-				sudah: [],
 				target: 270,
 				data: []
 			},
@@ -125,7 +121,14 @@
 						}
 						semua_jumlah.push(total)
 					}
-					this.data = semua_jumlah
+					kumpulan = []
+					for (n in semua_nama){
+						kumpulan.push({
+							nama: semua_nama[n],
+							jumlah: semua_jumlah[n]
+						})
+					}
+					this.data = kumpulan
 					loading_selesai()
 				})
 			}
