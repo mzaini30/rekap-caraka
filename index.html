@@ -64,6 +64,11 @@
 	<script type="text/javascript">
 		loading = () => document.querySelector('.progress-loading').classList.remove('sembunyi')
    		loading_selesai = () => document.querySelector('.progress-loading').classList.add('sembunyi')
+   		tanggalan_sekarang = new Date
+   		bulan_sekarang = tanggalan_sekarang.getMonth()
+   		tahun_sekarang = tanggalan_sekarang.getFullYear()
+   		// api = 'https://sheetdb.io/api/v1/6dp0vmu355mwe'
+   		api = 'data.json'
 		new Vue({
 			el: '.vue',
 			data: {
@@ -79,12 +84,21 @@
 			},
 			mounted(){
 				loading()
-				fetch('data.json').then(x => x.json()).then(data => {
+				fetch(api).then(x => x.json()).then(data => {
 					data = data.reverse()
+					data_baru = []
 					for (x of data){
-						
+						tanggalan = new Date(x.Timestamp)
+						bulan = tanggalan.getMonth()
+						tahun = tanggalan.getFullYear()
+						if (bulan == bulan_sekarang && tahun == tahun_sekarang){
+							data_baru.push(x)
+						}
 					}
-					this.data = data
+					for (x of data_baru){
+
+					}
+					this.data = data_baru
 					loading_selesai()
 				})
 			}
