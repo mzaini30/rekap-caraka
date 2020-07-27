@@ -27,7 +27,7 @@
 							<tbody>
 								<tr v-for='x in data'>
 									<td v-if='x.jumlah < target'>{{ x.nama }}</td>
-									<td v-if='x.jumlah < target'>{{ x.jumlah }}</td>
+									<td v-if='x.jumlah < target'>{{ x.jumlah }} (kurang {{ selisih(x.jumlah) }})</td>
 								</tr>
 							</tbody>
 						</table>
