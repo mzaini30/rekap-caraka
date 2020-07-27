@@ -64,7 +64,6 @@
 	<script type="text/javascript">
 		loading = () => document.querySelector('.progress-loading').classList.remove('sembunyi')
    		loading_selesai = () => document.querySelector('.progress-loading').classList.add('sembunyi')
-
 		new Vue({
 			el: '.vue',
 			data: {
@@ -82,6 +81,9 @@
 				loading()
 				fetch('data.json').then(x => x.json()).then(data => {
 					data = data.reverse()
+					for (x of data){
+						
+					}
 					this.data = data
 					loading_selesai()
 				})
